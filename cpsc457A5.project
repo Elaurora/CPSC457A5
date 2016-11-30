@@ -9,6 +9,9 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="main.c"/>
+    <File Name="database.h"/>
+    <File Name="types.h"/>
+    <File Name="database.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
