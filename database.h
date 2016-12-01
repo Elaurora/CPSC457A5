@@ -3,8 +3,8 @@
 
 #include "types.h"
 
-/*
- * The shared resouces between all processes
+/**
+ * The shared resouces between all processes for version 1 function threads
  */
 typedef struct database_v1 {
 	/*
@@ -30,13 +30,15 @@ typedef struct database_v1 {
 
 /**
  * @brief 
- * 		Initializes a db_v1 struct by initializing its mutexes and settings its reader count to 0
+ * 		Initializes a db_v1 struct by initializing its mutexes and setting its reader count to 0
  * @param db
  * 		The database struct to initialize
  */
 void initDB1(database_v1* db);
 
-
+/**
+ * The shared resouces between all processes for version 2 function threads
+ */
 typedef struct database_v2 {
 	/*
 	 * The mutex on the shared resource
@@ -79,8 +81,17 @@ typedef struct database_v2 {
 	u32 sharedGlobalVariable;
 } database_v2;
 
+/**
+ * @brief 
+ * 		Initializes a db_v2 struct by initializing its mutexes and setting its reader and writer counts to 0
+ * @param db
+ * 		The database struct to initialize
+ */
 void initDB2(database_v2* db);
 
+/**
+ * The shared resouces between all processes for version 3 function threads
+ */
 typedef struct database_v3 {
 	/*
 	 * The mutex on the shared resource
@@ -107,5 +118,13 @@ typedef struct database_v3 {
 	 */
 	u32 sharedGlobalVariable;
 } database_v3;
+
+/**
+ * @brief 
+ * 		Initializes a db_v3 struct by initializing its mutexes and setting its reader and writer counts to 0
+ * @param db
+ * 		The database struct to initialize
+ */
+void initDB3(database_v3* db);
 
 #endif
