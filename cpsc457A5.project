@@ -16,6 +16,7 @@
     <File Name="reader.h"/>
     <File Name="writers.c"/>
     <File Name="writers.h"/>
+    <File Name="types.c"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
