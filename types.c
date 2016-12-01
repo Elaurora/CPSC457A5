@@ -1,11 +1,11 @@
-#include "types.h
+#include "types.h"
 
 void lock(pthread_mutex_t* mutex) {
 	u32 returnVal = pthread_mutex_lock(mutex);
 	
 	if(returnVal) {
 		printf("Mutex Lock Failed\n");
-		pthread_exit(1);
+		pthread_exit((void*)&returnVal);
 	}
 }
 
@@ -14,6 +14,6 @@ void unlock(pthread_mutex_t* mutex) {
 	
 	if(returnVal) {
 		printf("Mutex Unlock Failed\n");
-		pthread_exit(1);
+		pthread_exit((void*)&returnVal);
 	}
 }

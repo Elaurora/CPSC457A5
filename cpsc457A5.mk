@@ -126,7 +126,11 @@ $(IntermediateDirectory)/writers.c$(PreprocessSuffix): writers.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/writers.c$(PreprocessSuffix)writers.c
 
 $(IntermediateDirectory)/types.c$(ObjectSuffix): types.c $(IntermediateDirectory)/types.c$(DependSuffix)
+<<<<<<< HEAD
 	$(CC) $(SourceSwitch) "C:/Users/joshua/Documents/CPSC457Assignment5/Assignment5/types.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/types.c$(ObjectSuffix) $(IncludePath)
+=======
+	$(CC) $(SourceSwitch) "D:/cygwin/home/cygwin/cpsc457A5/types.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/types.c$(ObjectSuffix) $(IncludePath)
+>>>>>>> 35261fad39bd853fc0a3d5c57b1cb355f57582eb
 $(IntermediateDirectory)/types.c$(DependSuffix): types.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/types.c$(ObjectSuffix) -MF$(IntermediateDirectory)/types.c$(DependSuffix) -MM types.c
 
