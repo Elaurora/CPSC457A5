@@ -12,7 +12,7 @@ void runTest1() {
 	 for(u32 readerCount = 5; readerCount <= 500; readerCount += 5) {
 		 readerTestCase(reader_V1, writer_V1, &db1, readers, readerCount, writers, 100);
 	 }
-	 
+	 printf("\n");
 	 for(u32 writerCount = 5; writerCount <= 100; writerCount += 5) {
 		 writerTestCase(reader_V1, writer_V1, &db1, readers, 500, writers, writerCount);
 	 }
@@ -21,43 +21,47 @@ void runTest1() {
 
 
 void runTest2() {
-	 database_v2 db1;
-	 initDB2(&db1);
+	//init the db
+	 database_v2 db2;
+	 initDB2(&db2);
 	 
+	 //init the readers writers
 	 pthread_t readers[500];
 	 pthread_t writers[100];
 	 
 	 //do all the reader tests
 	 for(u32 readerCount = 5; readerCount <= 500; readerCount += 5) {
-		 readerTestCase(reader_V2, writer_V2, &db1, readers, readerCount, writers, 100);
+		 readerTestCase(reader_V2, writer_V2, &db2, readers, readerCount, writers, 100);
 	 }
-	 
+	 printf("\n");
+	 //do all the writer tests
 	 for(u32 writerCount = 5; writerCount <= 100; writerCount += 5) {
-		 writerTestCase(reader_V2, writer_V2, &db1, readers, 500, writers, writerCount);
+		 writerTestCase(reader_V2, writer_V2, &db2, readers, 500, writers, writerCount);
 	 }
 
 }
 
 
 void runTest3() {
-	 database_v3 db1;
-	 initDB3(&db1);
-	 
+	//init the db
+	 database_v3 db3;
+	 initDB3(&db3);
+	 //init the readers writers
 	 pthread_t readers[500];
 	 pthread_t writers[100];
 	 
 	 //do all the reader tests
 	 for(u32 readerCount = 5; readerCount <= 500; readerCount += 5) {
-		 readerTestCase(reader_V3, writer_V3, &db1, readers, readerCount, writers, 100);
+		 readerTestCase(reader_V3, writer_V3, &db3, readers, readerCount, writers, 100);
 	 }
-	 
+	 printf("\n");
 	 for(u32 writerCount = 5; writerCount <= 100; writerCount += 5) {
-		 writerTestCase(reader_V3, writer_V3, &db1, readers, 500, writers, writerCount);
+		 writerTestCase(reader_V3, writer_V3, &db3, readers, 500, writers, writerCount);
 	 }
 
 }
 
-double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *), database_v1* db1, pthread_t* readers, u32 readerCount, pthread_t* writers, u32 writerCount) {
+double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *), void* db1, pthread_t* readers, u32 readerCount, pthread_t* writers, u32 writerCount) {
 
 	
 #if VERBOSE
@@ -109,7 +113,7 @@ double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 	return sumTurnaroundReader / readerCount;
 }
 
-double writerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *), database_v1* db1, pthread_t* readers, u32 readerCount, pthread_t* writers, u32 writerCount) {
+double writerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *), void* db1, pthread_t* readers, u32 readerCount, pthread_t* writers, u32 writerCount) {
 	
 	
 #if VERBOSE
