@@ -4,7 +4,8 @@
 #include "database.h"
 
 /**
- * @brief First version of the writer function thread.
+ * @brief First version of the writer function thread. Simply waits until the resource is available which
+ * will occur when all readers are finished reading
  * 
  */
 void* writer_V1(void* data);

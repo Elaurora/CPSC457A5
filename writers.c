@@ -3,12 +3,12 @@
 void* writer_V1(void* data){
 	database_v1* db = (database_v1*)data;
 	
-	lock(&db->resource);
+	lock(&db->resource);// Aquire the permission to pretend to write
 	
 	//Pointlessly wait to immitate computation
-	sleep(1);
+	sleep(1);// WORK SO HARD
 	
-	unlock(&db->resource);
+	unlock(&db->resource);// unlock the permission to write or read
 	
 	return NULL;
 }
