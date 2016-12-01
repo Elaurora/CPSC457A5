@@ -21,7 +21,7 @@ void reader_V1(void* data) {
 	db->readerCount--;
 	
 	if(db->readerCount == 0){
-		unlock(&db->resource)
+		unlock(&db->resource);
 	}
 	
 	unlock(&db->reader);
