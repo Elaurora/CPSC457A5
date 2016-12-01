@@ -12,6 +12,8 @@
     <File Name="database.h"/>
     <File Name="types.h"/>
     <File Name="database.cpp"/>
+    <File Name="writers.c"/>
+    <File Name="writers.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
