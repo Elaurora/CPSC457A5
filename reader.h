@@ -7,7 +7,7 @@
  * @brief 
  * 		The reader function for v1 of the solution
  */
-void reader_V1(database_v1* db);
+void reader_V1(void* db);
 
 void reader_V2();
 
