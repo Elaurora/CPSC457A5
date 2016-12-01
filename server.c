@@ -159,7 +159,7 @@ double writerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 #if VERBOSE
 		 printf("Average turn around for %d readers, %d writers is: %lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
 #else
-		printf("%d\t%d\t%lf\n", readerCount, writerCount sumTurnaroundWriter / readerCount);
+		printf("%d\t%d\t%lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
 #endif	
 
 	return sumTurnaroundWriter / readerCount;
