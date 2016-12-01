@@ -140,7 +140,7 @@ void* reader_V3(void* data){
 	
 	lock(&db->readwrite); // Aquire permission to the count variables
 	db->readerCount--; // Decrement the reader count
-	if(&db->readerCount == 0){
+	if(db->readerCount == 0){
 		unlock(&db->resource);//If this was the last running reader release the resource.
 	}
 	unlock(&db->readwrite);// Unlock the permission to the count variables
