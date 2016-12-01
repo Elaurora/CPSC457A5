@@ -7,11 +7,11 @@
  * @brief 
  * 		The reader function for v1 of the solution
  */
-void reader_V1(database_v1* db);
+void reader_V1(void* data);
 
-void reader_V2();
+void reader_V2(void* data);
 
-void reader_V3();
+void reader_V3(void* data);
 
 
 #endif
