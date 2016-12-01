@@ -62,7 +62,7 @@ AS       := as
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/database.c$(ObjectSuffix) $(IntermediateDirectory)/reader.c$(ObjectSuffix) $(IntermediateDirectory)/writers.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/database.c$(ObjectSuffix) $(IntermediateDirectory)/reader.c$(ObjectSuffix) $(IntermediateDirectory)/writers.c$(ObjectSuffix) $(IntermediateDirectory)/types.c$(ObjectSuffix) 
 
 
 
@@ -124,6 +124,14 @@ $(IntermediateDirectory)/writers.c$(DependSuffix): writers.c
 
 $(IntermediateDirectory)/writers.c$(PreprocessSuffix): writers.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/writers.c$(PreprocessSuffix)writers.c
+
+$(IntermediateDirectory)/types.c$(ObjectSuffix): types.c $(IntermediateDirectory)/types.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "D:/cygwin/home/cygwin/cpsc457A5/types.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/types.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/types.c$(DependSuffix): types.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/types.c$(ObjectSuffix) -MF$(IntermediateDirectory)/types.c$(DependSuffix) -MM types.c
+
+$(IntermediateDirectory)/types.c$(PreprocessSuffix): types.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/types.c$(PreprocessSuffix)types.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
