@@ -6,5 +6,5 @@ void initDB1(database_v1* db) {
 	pthread_mutex_init(&db->resource, NULL);
 	//set the reader count to 0
 	db->readerCount = 0;
-	db->shaderedGlobalVariable = 0;
+	db->sharedGlobalVariable = 0;
 }
