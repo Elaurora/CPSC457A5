@@ -99,7 +99,7 @@ double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 			free(status);
 			
 		 }
-		
+		 
 		 for(u32 i = 0; i < writerCount; i++) {
 			 pthread_join(writers[i], NULL);
 		 }

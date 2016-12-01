@@ -55,8 +55,6 @@ void* writer_V2(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
-	//Pointlessly wait to immitate computation
-	sleep(1);// WORK SO HARD
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
@@ -101,8 +99,6 @@ void* writer_V3(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
-	//Pointlessly wait to immitate computation
-	sleep(1);// WORK SO HARD
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");

@@ -76,8 +76,6 @@ void* reader_V2(void* data){
 	
 	u32 savedIncrementedValue = db->sharedGlobalVariable;// Save the value before sleeping
 	
-	//Pointlessly wait to immitate computation
-	sleep(1);// Look how hard im working!
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "A writer was allowed to run while a reader was still running\n");
@@ -129,8 +127,6 @@ void* reader_V3(void* data){
 	
 	u32 savedIncrementedValue = db->sharedGlobalVariable;// Save the value before sleeping
 	
-	//Pointlessly wait to immitate computation
-	sleep(1);// Look how hard im working!
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "A writer was allowed to run while a reader was still running\n");
