@@ -1,5 +1,9 @@
 #include "database.h"
 
+volatile u8 readyToStart = 0;
+
+FILE* outputStream = NULL;
+
 void initDB1(database_v1* db) {
 	//initialize the mutexes
 	pthread_mutex_init(&db->reader, NULL);

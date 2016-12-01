@@ -3,6 +3,9 @@
 
 #include "types.h"
 
+extern volatile u8 readyToStart;
+extern FILE* outputStream;
+
 /**
  * The shared resouces between all processes for version 1 function threads
  */

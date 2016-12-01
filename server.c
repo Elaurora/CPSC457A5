@@ -9,10 +9,10 @@ void runTest1() {
 	 pthread_t writers[100];
 	 
 	 //do all the reader tests
-	 for(u32 readerCount = 5; readerCount <= 500; readerCount += 5) {
+	 for(u32 readerCount = 5; readerCount <= 500 ;readerCount += 5) {
 		 readerTestCase(reader_V1, writer_V1, &db1, readers, readerCount, writers, 100);
 	 }
-	 printf("\n");
+	 fprintf(outputStream, "\n");
 	 for(u32 writerCount = 5; writerCount <= 100; writerCount += 5) {
 		 writerTestCase(reader_V1, writer_V1, &db1, readers, 500, writers, writerCount);
 	 }
@@ -33,7 +33,7 @@ void runTest2() {
 	 for(u32 readerCount = 5; readerCount <= 500; readerCount += 5) {
 		 readerTestCase(reader_V2, writer_V2, &db2, readers, readerCount, writers, 100);
 	 }
-	 printf("\n");
+	 fprintf(outputStream, "\n");
 	 //do all the writer tests
 	 for(u32 writerCount = 5; writerCount <= 100; writerCount += 5) {
 		 writerTestCase(reader_V2, writer_V2, &db2, readers, 500, writers, writerCount);
@@ -54,7 +54,7 @@ void runTest3() {
 	 for(u32 readerCount = 5; readerCount <= 500; readerCount += 5) {
 		 readerTestCase(reader_V3, writer_V3, &db3, readers, readerCount, writers, 100);
 	 }
-	 printf("\n");
+	 fprintf(outputStream, "\n");
 	 for(u32 writerCount = 5; writerCount <= 100; writerCount += 5) {
 		 writerTestCase(reader_V3, writer_V3, &db3, readers, 500, writers, writerCount);
 	 }
@@ -65,27 +65,31 @@ double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 
 	
 #if VERBOSE
-		printf("Starting readerCount == %d\n", readerCount);
+		fprintf(outputStream, "Starting readerCount == %d\n", readerCount);
 #endif
 		 double sumTurnaroundReader = 0.0;
 		 
 		 u32 index = 0;
 		 
+		 readyToStart = 0;
+		 
 		 while(index < readerCount || index < writerCount) {
 			if(index < readerCount) {
+				
 				 pthread_create(&(readers[index]), NULL, readerTask, db1);
 			}
 			 
 			if(index < writerCount) {
-				pthread_create(&(writers[index]), NULL, writerTask, db1);
+				 pthread_create(&(writers[index]), NULL, writerTask, db1);
 			}
 			
 			index++;
 		 }
 		 
+		 readyToStart = 1;
 	
 #if VERBOSE
-		printf("Threads launched, joining...\n");
+		fprintf(outputStream, "Threads launched, joining...\n");
 #endif	 
 		 //all the threads are running atm
 		 
@@ -105,9 +109,9 @@ double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 		 }
 		 
 #if VERBOSE
-		 printf("Average turn around for %d readers, %d writers is: %lf\n", readerCount, writerCount, sumTurnaroundReader / readerCount);
+		 fprintf(outputStream, "Average turn around for %d readers, %d writers is: %lf\n", readerCount, writerCount, sumTurnaroundReader / readerCount);
 #else
-		printf("%d\t%d\t%lf\n", readerCount, writerCount, sumTurnaroundReader / readerCount);
+		fprintf(outputStream, "%d\t%d\t%lf\n", readerCount, writerCount, sumTurnaroundReader / readerCount);
 #endif	
 
 	return sumTurnaroundReader / readerCount;
@@ -117,9 +121,11 @@ double writerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 	
 	
 #if VERBOSE
-		printf("Starting writerCount == %d\n", writerCount);
+		fprintf(outputStream, "Starting writerCount == %d\n", writerCount);
 #endif
 		 double sumTurnaroundWriter = 0.0;
+		 
+		  readyToStart = 0;
 		 
 		 u32 index = 0;
 		 
@@ -135,9 +141,10 @@ double writerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 			index++;
 		 }
 		 
+		readyToStart = 1;
 	
 #if VERBOSE
-		printf("Threads launched, joining...\n");
+		fprintf(outputStream, "Threads launched, joining...\n");
 #endif	 
 		 //all the threads are running atm
 		 
@@ -157,9 +164,9 @@ double writerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 		 }
 		 
 #if VERBOSE
-		 printf("Average turn around for %d readers, %d writers is: %lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
+		fprintf(outputStream, "Average turn around for %d readers, %d writers is: %lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
 #else
-		printf("%d\t%d\t%lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
+		fprintf(outputStream, "%d\t%d\t%lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
 #endif	
 
 	return sumTurnaroundWriter / readerCount;

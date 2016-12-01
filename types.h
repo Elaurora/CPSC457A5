@@ -1,13 +1,16 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#define VERBOSE 0
+
 
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <time.h>
+
+#define VERBOSE 0
+#define TO_CONSOLE 0
 
 typedef unsigned int u32;
 typedef unsigned short u16;

@@ -1,10 +1,14 @@
 #include "writers.h"
 
 void* writer_V1(void* data){
+	database_v1* db = (database_v1*)data;
+	
+	while(!readyToStart) {
+		usleep(1);
+	}
+	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
-	
-	database_v1* db = (database_v1*)data;
 	
 	lock(&db->resource);// Aquire the permission to pretend to write
 	
@@ -20,7 +24,7 @@ void* writer_V1(void* data){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
 		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
 	}
-	
+	usleep(1000); //1ms sleep
 	// end of critical section
 	
 	unlock(&db->resource);// unlock the permission to write or read
@@ -39,10 +43,17 @@ void* writer_V1(void* data){
 }
 
 void* writer_V2(void* data){
+	
+	database_v2* db = (database_v2*)data;
+	
+	while(!readyToStart) {
+		usleep(1);
+	}
+	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
-	database_v2* db = (database_v2*)data;
+	
 	
 	lock(&db->writer);// aquire lock for the writerCount variable
 	db->writerCount++;// increment the writerCount variable
@@ -55,6 +66,7 @@ void* writer_V2(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
+	usleep(1000); //1ms sleep
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
@@ -85,10 +97,14 @@ void* writer_V2(void* data){
 }
 
 void* writer_V3(void* data){
+	database_v3* db = (database_v3*)data;
+	
+	while(!readyToStart) {
+		usleep(1);
+	}
+	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
-	
-	database_v3* db = (database_v3*)data;
 	
 	lock(&db->readwrite);// Aquire permission to the count variables
 	db->writerCount++;// increment the number of writers
@@ -99,6 +115,7 @@ void* writer_V3(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
+	usleep(1000); //1ms sleep
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
