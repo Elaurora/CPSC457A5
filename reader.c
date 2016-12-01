@@ -6,6 +6,6 @@ void reader_V1(database_v1* db) {
 	db->readers++;
 	
 	if(db->reader == 1) {
-		pthread_mutex_lock
+		//pthread_mutex_lock
 	}
 }

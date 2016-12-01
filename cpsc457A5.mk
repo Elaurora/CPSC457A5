@@ -62,7 +62,7 @@ AS       := as
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/database.c$(ObjectSuffix) $(IntermediateDirectory)/reader.c$(ObjectSuffix) $(IntermediateDirectory)/writers.c$(ObjectSuffix) 
 
 
 
@@ -100,6 +100,30 @@ $(IntermediateDirectory)/main.c$(DependSuffix): main.c
 
 $(IntermediateDirectory)/main.c$(PreprocessSuffix): main.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.c$(PreprocessSuffix)main.c
+
+$(IntermediateDirectory)/database.c$(ObjectSuffix): database.c $(IntermediateDirectory)/database.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/joshua/Documents/CPSC457Assignment5/Assignment5/database.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/database.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/database.c$(DependSuffix): database.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/database.c$(ObjectSuffix) -MF$(IntermediateDirectory)/database.c$(DependSuffix) -MM database.c
+
+$(IntermediateDirectory)/database.c$(PreprocessSuffix): database.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/database.c$(PreprocessSuffix)database.c
+
+$(IntermediateDirectory)/reader.c$(ObjectSuffix): reader.c $(IntermediateDirectory)/reader.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/joshua/Documents/CPSC457Assignment5/Assignment5/reader.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/reader.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/reader.c$(DependSuffix): reader.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/reader.c$(ObjectSuffix) -MF$(IntermediateDirectory)/reader.c$(DependSuffix) -MM reader.c
+
+$(IntermediateDirectory)/reader.c$(PreprocessSuffix): reader.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/reader.c$(PreprocessSuffix)reader.c
+
+$(IntermediateDirectory)/writers.c$(ObjectSuffix): writers.c $(IntermediateDirectory)/writers.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/joshua/Documents/CPSC457Assignment5/Assignment5/writers.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/writers.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/writers.c$(DependSuffix): writers.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/writers.c$(ObjectSuffix) -MF$(IntermediateDirectory)/writers.c$(DependSuffix) -MM writers.c
+
+$(IntermediateDirectory)/writers.c$(PreprocessSuffix): writers.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/writers.c$(PreprocessSuffix)writers.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

@@ -2,13 +2,15 @@
 
 void writer_V1(database_v1* data){
 	
-	if(pthread_mutex_lock(data->resource) != 0){
-		
+	if(lock(&data->resource) != 0){
+		//Some error trying to get the lock, exiting
+		pthread_exit(1);
 	}
 	
 	//Pointlessly wait to immitate computation
+	sleep(1);
 	
-	pthread_mutex_unlock(data->resouece);
+	unlock(&data->resource);
 }
 
 void writer_V2(database_v1* data){
