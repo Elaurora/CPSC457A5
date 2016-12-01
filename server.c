@@ -75,8 +75,7 @@ double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 		 
 		 while(index < readerCount || index < writerCount) {
 			if(index < readerCount) {
-				
-				 pthread_create(&(readers[index]), NULL, readerTask, db1);
+				pthread_create(&(readers[index]), NULL, readerTask, db1);
 			}
 			 
 			if(index < writerCount) {
