@@ -1,11 +1,9 @@
 #include "writers.h"
 
-void writer_V1(database_v1* data){
+void writer_V1(void* data){
+	database_v1* db = (database_v1*)data;
 	
-	if(lock(&data->resource) != 0){
-		//Some error trying to get the lock, exiting
-		pthread_exit(1);
-	}
+	lock(&data->resource);
 	
 	//Pointlessly wait to immitate computation
 	sleep(1);
@@ -13,10 +11,10 @@ void writer_V1(database_v1* data){
 	unlock(&data->resource);
 }
 
-void writer_V2(database_v1* data){
+void writer_V2(void* data){
 	
 }
 
-void writer_V3(database_v1* data){
+void writer_V3(void* data){
 	
 }
