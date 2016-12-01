@@ -1,11 +1,11 @@
 #include "reader.h"
 
 void reader_V1(database_v1* db) {
-	pthread_mutex_lock(&db->reader);
+	lock(&db->reader);
 	
-	db->readers++;
+	db->readerCount++;
 	
-	if(db->reader == 1) {
-		pthread_mutex_lock
+	if(db->readerCount == 1) {
+		lock(&db->resource);
 	}
 }

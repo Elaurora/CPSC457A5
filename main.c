@@ -4,6 +4,19 @@
 
 int main(int argc, char **argv)
 {
-	printf("hello world\n");
+	/*
+	 * 
+	 * Test driver for V1
+	 */
+	 
+	 database_v1 db1;
+	 initDB1(&db1);
+	 
+	 pthread reader;
+	 pthread_create(&reader, NULL, reader_V1, &db1);
+	 
+	 reader_V1(&db1);
+	 writer_V1(&db1);
+	 
 	return 0;
 }

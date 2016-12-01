@@ -7,7 +7,7 @@
 typedef struct database_v1 {
 	pthread_mutex_t resource;
 	pthread_mutex_t reader;
-	u32 readers;
+	u32 readerCount;
 } database_v1;
 
 /**
