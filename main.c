@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	 initDB1(&db1);
 	 
 	 pthread reader;
-	 pthread_create(&reader, NULL, reader_V1, &db1);
+	 pthread_create(&reader, NULL, reader_V1, (void*)&db1);
 	 
 	 reader_V1(&db1);
 	 writer_V1(&db1);
