@@ -29,4 +29,17 @@ void lock(pthread_mutex_t* mutex);
  */
 void unlock(pthread_mutex_t* mutex);
 
+/**
+ * @brief 
+ * 		Subtracts 2 timespecs, assumes the difference is less than 4 seconds,
+ * 		and left > right
+ * @param left
+ * 		The lHS
+ * @param right
+ * 		The RHS
+ * @return 
+ * 		The number of nanoseconds between left and right
+ */
+u32 timespec_subtract(struct timespec* left, struct timespec* right);
+
 #endif

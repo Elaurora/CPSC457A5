@@ -1,7 +1,8 @@
 #include "writers.h"
 
 void* writer_V1(void* data){
-	clock_t start_time = clock();// Save the clock cycles at the eginning of execution
+	struct timespec start_time;// Save the clock cycles at the eginning of execution
+	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
 	database_v1* db = (database_v1*)data;
 	
@@ -11,7 +12,7 @@ void* writer_V1(void* data){
 	
 	
 	//Pointlessly wait to immitate computation
-	sleep(1);// WORK SO HARD
+	// WORK SO HARDs
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
@@ -20,9 +21,17 @@ void* writer_V1(void* data){
 	
 	unlock(&db->resource);// unlock the permission to write or read
 	
-	u32 total_runtime = clock() - start_time;// Calculate the total run time in seconds
+	struct timespec end_time;	
+	clock_gettime(CLOCK_MONOTONIC, &end_time);
 	
-	return (void*)total_runtime;
+	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
+	
+	u32* toReturn = malloc(sizeof(u32));
+	*toReturn = total_runtime;
+	
+	pthread_exit(toReturn);
+	
+	return NULL;
 }
 
 void* writer_V2(void* data){

@@ -1,1 +1,1 @@
-./Debug/main.c.o ./Debug/database.c.o ./Debug/reader.c.o ./Debug/writers.c.o ./Debug/types.c.o   
+./Debug/main.c.o ./Debug/database.c.o ./Debug/reader.c.o ./Debug/writers.c.o ./Debug/types.c.o ./Debug/server.c.o   
