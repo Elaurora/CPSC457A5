@@ -1,6 +1,8 @@
 #include "reader.h"
 
 void* reader_V1(void* data) {
+	clock_t start_time = clock();// Save the clock cycles at the eginning of execution
+	
 	database_v1* db = (database_v1*)data;
 	
 	lock(&db->reader);// Aquire permission to read readerCount
@@ -13,8 +15,15 @@ void* reader_V1(void* data) {
 	 
 	unlock(&db->reader);// Unlock the permission for readerCount
 	
+	u32 savedIncrementedValue = db->sharedGlobalVariable;// Save the value before sleeping
+	
 	//Pointlessly wait to immitate computation
 	sleep(1);// Look how hard im working!
+	
+	if(db->sharedGlobalVariable != savedIncrementedValue){
+		fprintf(stderr, "A writer was allowed to run while a reader was still running\n");
+		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
+	}
 	
 	lock(&db->reader);// Get the permissions for readerCount again
 	
@@ -26,5 +35,8 @@ void* reader_V1(void* data) {
 	
 	unlock(&db->reader);// Unlock the permission for readerCount
 	
-	return NULL;// return nothing, this function accomplished nothing.
+	u32 total_runtime = clock() - start_time;// Calculate the total run time in seconds
+	
+	return (void*)total_runtime;
 }
+

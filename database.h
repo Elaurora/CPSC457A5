@@ -25,7 +25,7 @@ typedef struct database_v1 {
 	/**
 	 * A test shared variable between all the processes
 	 */
-	u32 shaderedGlobalVariable;
+	u32 sharedGlobalVariable;
 } database_v1;
 
 /**
