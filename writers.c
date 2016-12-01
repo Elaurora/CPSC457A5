@@ -30,7 +30,7 @@ void* writer_V1(void* data){
 	
 	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
 	
-	u32* toReturn = malloc(sizeof(u32));
+	u32* toReturn = (u32*)malloc(sizeof(u32));
 	*toReturn = total_runtime;
 	
 	pthread_exit(toReturn);
@@ -55,8 +55,6 @@ void* writer_V2(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
-	//Pointlessly wait to immitate computation
-	sleep(1);// WORK SO HARD
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
@@ -78,7 +76,7 @@ void* writer_V2(void* data){
 	
 	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
 	
-	u32* toReturn = malloc(sizeof(u32));
+	u32* toReturn = (u32*)malloc(sizeof(u32));
 	*toReturn = total_runtime;
 	
 	pthread_exit(toReturn);
@@ -101,8 +99,6 @@ void* writer_V3(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
-	//Pointlessly wait to immitate computation
-	sleep(1);// WORK SO HARD
 	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
@@ -122,7 +118,7 @@ void* writer_V3(void* data){
 	
 	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
 	
-	u32* toReturn = malloc(sizeof(u32));
+	u32* toReturn = (u32*)malloc(sizeof(u32));
 	*toReturn = total_runtime;
 	
 	pthread_exit(toReturn);
