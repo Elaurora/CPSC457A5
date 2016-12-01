@@ -62,7 +62,7 @@ AS       := as
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/database.c$(ObjectSuffix) $(IntermediateDirectory)/reader.c$(ObjectSuffix) $(IntermediateDirectory)/writers.c$(ObjectSuffix) $(IntermediateDirectory)/types.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/database.c$(ObjectSuffix) $(IntermediateDirectory)/reader.c$(ObjectSuffix) $(IntermediateDirectory)/writers.c$(ObjectSuffix) $(IntermediateDirectory)/types.c$(ObjectSuffix) $(IntermediateDirectory)/server.c$(ObjectSuffix) 
 
 
 
@@ -132,6 +132,14 @@ $(IntermediateDirectory)/types.c$(DependSuffix): types.c
 
 $(IntermediateDirectory)/types.c$(PreprocessSuffix): types.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/types.c$(PreprocessSuffix)types.c
+
+$(IntermediateDirectory)/server.c$(ObjectSuffix): server.c $(IntermediateDirectory)/server.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/joshua/Documents/CPSC457Assignment5/Assignment5/server.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/server.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/server.c$(DependSuffix): server.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/server.c$(ObjectSuffix) -MF$(IntermediateDirectory)/server.c$(DependSuffix) -MM server.c
+
+$(IntermediateDirectory)/server.c$(PreprocessSuffix): server.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/server.c$(PreprocessSuffix)server.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
