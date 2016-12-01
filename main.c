@@ -1,8 +1,7 @@
-#include <stdio.h>
 #include "database.h"
 #include "reader.h"
 #include "writers.h"
-#include <stdlib.h>
+
 
 int main(int argc, char **argv)
 {
