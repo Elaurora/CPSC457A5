@@ -39,7 +39,8 @@ void* writer_V1(void* data){
 }
 
 void* writer_V2(void* data){
-	clock_t start_time = clock();// Save the clock cycles at the eginning of execution
+	struct timespec start_time;// Save the clock cycles at the eginning of execution
+	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
 	database_v2* db = (database_v2*)data;
 	
@@ -72,13 +73,22 @@ void* writer_V2(void* data){
 	}
 	unlock(&db->writer);// Unlock the writerCount mutex
 	
-	u32 total_runtime = clock() - start_time;// Calculate the total run time in seconds
+	struct timespec end_time;	
+	clock_gettime(CLOCK_MONOTONIC, &end_time);
 	
-	return (void*)total_runtime;
+	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
+	
+	u32* toReturn = malloc(sizeof(u32));
+	*toReturn = total_runtime;
+	
+	pthread_exit(toReturn);
+	
+	return NULL;
 }
 
 void* writer_V3(void* data){
-	clock_t start_time = clock();// Save the clock cycles at the eginning of execution
+	struct timespec start_time;// Save the clock cycles at the eginning of execution
+	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
 	database_v3* db = (database_v3*)data;
 	
@@ -107,7 +117,15 @@ void* writer_V3(void* data){
 	
 	unlock(&db->resource);// unlock permission to the resource
 	
-	u32 total_runtime = clock() - start_time;// Calculate the total run time in seconds
+	struct timespec end_time;	
+	clock_gettime(CLOCK_MONOTONIC, &end_time);
 	
-	return (void*)total_runtime;
+	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
+	
+	u32* toReturn = malloc(sizeof(u32));
+	*toReturn = total_runtime;
+	
+	pthread_exit(toReturn);
+	
+	return NULL;
 }
