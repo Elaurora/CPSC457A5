@@ -1,7 +1,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 #include <pthread.h>
 #include <stdio.h>
