@@ -17,6 +17,8 @@
     <File Name="writers.c"/>
     <File Name="writers.h"/>
     <File Name="types.c"/>
+    <File Name="server.h"/>
+    <File Name="server.c"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
