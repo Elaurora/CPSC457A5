@@ -11,9 +11,10 @@
     <File Name="main.c"/>
     <File Name="database.h"/>
     <File Name="types.h"/>
-    <File Name="database.cpp"/>
-    <File Name="writers.c"/>
-    <File Name="writers.h"/>
+
+    <File Name="database.c"/>
+    <File Name="reader.c"/>
+    <File Name="reader.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
