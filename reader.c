@@ -1,5 +1,6 @@
 #include "reader.h"
 
+
 void* reader_V1(void* data) {
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
@@ -43,7 +44,7 @@ void* reader_V1(void* data) {
 	clock_gettime(CLOCK_MONOTONIC, &end_time);
 	
 	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
-	u32* toReturn = malloc(sizeof(u32));
+	u32* toReturn = (u32*)malloc(sizeof(u32));
 	*toReturn = total_runtime;
 	
 	
@@ -98,7 +99,7 @@ void* reader_V2(void* data){
 	clock_gettime(CLOCK_MONOTONIC, &end_time);
 	
 	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
-	u32* toReturn = malloc(sizeof(u32));
+	u32* toReturn = (u32*)malloc(sizeof(u32));
 	*toReturn = total_runtime;
 	
 	
@@ -149,7 +150,7 @@ void* reader_V3(void* data){
 	clock_gettime(CLOCK_MONOTONIC, &end_time);
 	
 	u32 total_runtime = timespec_subtract(&end_time, &start_time);// Calculate the total run time in seconds
-	u32* toReturn = malloc(sizeof(u32));
+	u32* toReturn = (u32*)malloc(sizeof(u32));
 	*toReturn = total_runtime;
 	
 	
