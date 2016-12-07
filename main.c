@@ -10,6 +10,10 @@ int main(int argc, char **argv)
 #else
 	outputStream = fopen("cpsc457A5_Log.txt", "w");
 #endif
+
+#if !VERBOSE 
+	fprintf(outputStream, "The columns are respectively, # of readers, # of writers, mean completion time (ns)\n");
+#endif
 	
 	
 #if VERBOSE
