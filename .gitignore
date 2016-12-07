@@ -35,3 +35,8 @@
 
 # Make file
 *.mk
+
+*.project
+cpsc457A5.project
+
+Debug/*
