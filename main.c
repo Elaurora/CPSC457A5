@@ -2,6 +2,9 @@
 
 int main(int argc, char **argv)
 {
+	
+	srand(time(NULL));
+	
 #if TO_CONSOLE
 	outputStream = stdout;
 #else
@@ -12,18 +15,21 @@ int main(int argc, char **argv)
 #if VERBOSE
 	fprintf(outputStream, "starting case 1\n");
 #endif
+	printf("starting case 1\n");
 
 	 runTest1();
 	 
 #if VERBOSE
 	fprintf(outputStream, "starting case 2\n");
 #endif
+	printf("starting case 2\n");
 	fprintf(outputStream, "\n");
 	runTest2();
 	 
 #if VERBOSE
 	fprintf(outputStream, "starting case 3\n");
 #endif
+	printf("starting case 3\n");
 	fprintf(outputStream, "\n");
 	runTest3();
 

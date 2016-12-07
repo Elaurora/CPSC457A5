@@ -3,10 +3,6 @@
 void* writer_V1(void* data){
 	database_v1* db = (database_v1*)data;
 	
-	while(!readyToStart) {
-		usleep(1);
-	}
-	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
@@ -24,7 +20,7 @@ void* writer_V1(void* data){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
 		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
 	}
-	usleep(1000); //1ms sleep
+	usleep(SLEEP_IN_CS);
 	// end of critical section
 	
 	unlock(&db->resource);// unlock the permission to write or read
@@ -46,10 +42,6 @@ void* writer_V2(void* data){
 	
 	database_v2* db = (database_v2*)data;
 	
-	while(!readyToStart) {
-		usleep(1);
-	}
-	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
@@ -66,13 +58,11 @@ void* writer_V2(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
-	usleep(1000); //1ms sleep
-	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
 		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
 	}
-	
+	usleep(SLEEP_IN_CS);
 	//end of critical section
 	
 	unlock(&db->resource);// Unlock the permissions to write to the shared variable
@@ -99,10 +89,6 @@ void* writer_V2(void* data){
 void* writer_V3(void* data){
 	database_v3* db = (database_v3*)data;
 	
-	while(!readyToStart) {
-		usleep(1);
-	}
-	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
@@ -115,12 +101,12 @@ void* writer_V3(void* data){
 	// Beginning of critical section
 	u32 savedIncrementedValue = ++(db->sharedGlobalVariable);// Save the value before sleeping
 	
-	usleep(1000); //1ms sleep
-	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "More than one writer was allowed into the critical section at once\n");
 		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
 	}
+	
+	usleep(SLEEP_IN_CS);
 	
 	//end of critical section
 	

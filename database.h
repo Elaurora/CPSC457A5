@@ -2,6 +2,7 @@
 #define DATABASE_H
 
 #include "types.h"
+#include "spinlock.h"
 
 extern volatile u8 readyToStart;
 extern FILE* outputStream;
@@ -13,12 +14,12 @@ typedef struct database_v1 {
 	/*
 	 * The mutex on the shared resource
 	 */
-	pthread_mutex_t resource;
+	spinlock resource;
 	
 	/**
 	 * The mutex shared by readers
 	 */
-	pthread_mutex_t reader;
+	spinlock reader;
 	
 	/*
 	 * How many readers are currently in the critical section
@@ -46,27 +47,27 @@ typedef struct database_v2 {
 	/*
 	 * The mutex on the shared resource
 	 */
-	pthread_mutex_t resource;
+	spinlock resource;
 	
 	/*
 	 * This mutex allows writers to bully readers away from accessing the shared resource
 	 */
-	pthread_mutex_t readtry;
+	spinlock readtry;
 	
 	/*
 	 * needed to ensure that the program favors writers
 	 */
-	pthread_mutex_t rentry;
+	spinlock rentry;
 	
 	/**
 	 * The mutex for the writerCount variable
 	 */
-	pthread_mutex_t writer;
+	spinlock writer;
 	
 	/**
 	 * The mutex for the readerCount variable
 	 */
-	pthread_mutex_t reader;
+	spinlock reader;
 	
 	/**
 	 * The number of writer threads currently executing
@@ -99,12 +100,12 @@ typedef struct database_v3 {
 	/*
 	 * The mutex on the shared resource
 	 */
-	pthread_mutex_t resource;
+	spinlock resource;
 	
 	/**
 	 * The mutex for the writerCount and readerCount variables
 	 */
-	pthread_mutex_t readwrite;
+	spinlock readwrite;
 	
 	/**
 	 * The number of writer threads currently executing

@@ -19,6 +19,8 @@
     <File Name="types.c"/>
     <File Name="server.h"/>
     <File Name="server.c"/>
+    <File Name="spinlock.h"/>
+    <File Name="spinlock.c"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

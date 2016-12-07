@@ -3,10 +3,6 @@
 
 void* reader_V1(void* data) {
 	database_v1* db = (database_v1*)data;
-	
-	while(!readyToStart) {
-		usleep(1);
-	}
 
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
@@ -26,13 +22,11 @@ void* reader_V1(void* data) {
 	//beginning of critical section
 	
 	u32 savedIncrementedValue = db->sharedGlobalVariable;// Save the value before sleeping
-	usleep(1000); //1ms sleep
-	//Pointlessly wait to immitate computation
-	//usleep(100);// Look how hard im working!
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "A writer was allowed to run while a reader was still running\n");
 		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
 	}
+	usleep(SLEEP_IN_CS);
 	//printf("%d\n", db->readerCount);
 	// end of critical section
 	
@@ -62,14 +56,8 @@ void* reader_V1(void* data) {
 void* reader_V2(void* data){
 	database_v2* db = (database_v2*)data;
 	
-	while(!readyToStart) {
-		usleep(1);
-	}
-	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
-	
-	
 	
 	lock(&db->rentry);// Aquire permission to attempt to aquire pemission to read
 	lock(&db->readtry);// Aquire permission to read
@@ -88,13 +76,11 @@ void* reader_V2(void* data){
 	
 	u32 savedIncrementedValue = db->sharedGlobalVariable;// Save the value before sleeping
 	
-	usleep(1000); //1ms sleep
-	
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "A writer was allowed to run while a reader was still running\n");
 		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
 	}
-	
+	usleep(SLEEP_IN_CS);
 	// end of critical section
 	
 	lock(&db->reader); // Aquire permission to readerCount variable
@@ -122,10 +108,6 @@ void* reader_V2(void* data){
 void* reader_V3(void* data){
 	database_v3* db = (database_v3*)data;
 	
-	while(!readyToStart) {
-		usleep(1);
-	}
-	
 	struct timespec start_time;// Save the clock cycles at the eginning of execution
 	clock_gettime(CLOCK_MONOTONIC, &start_time);
 	
@@ -137,6 +119,7 @@ void* reader_V3(void* data){
 		lock(&db->readwrite); // re-aquire the permissions on the count variables
 	}
 	
+	
 	db->readerCount++;// Increment the reader counter
 	unlock(&db->readwrite);// Unlock permissions to the count variables
 	
@@ -144,12 +127,11 @@ void* reader_V3(void* data){
 	
 	u32 savedIncrementedValue = db->sharedGlobalVariable;// Save the value before sleeping
 	
-	usleep(1000); //1ms sleep
 	if(db->sharedGlobalVariable != savedIncrementedValue){
 		fprintf(stderr, "A writer was allowed to run while a reader was still running\n");
 		fprintf(stderr, "Expected value:%d Actual value:%d\n", savedIncrementedValue, db->sharedGlobalVariable);
 	}
-	
+	usleep(SLEEP_IN_CS);
 	// end of critical section
 	
 	lock(&db->readwrite); // Aquire permission to the count variables

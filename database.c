@@ -6,8 +6,8 @@ FILE* outputStream = NULL;
 
 void initDB1(database_v1* db) {
 	//initialize the mutexes
-	pthread_mutex_init(&db->reader, NULL);
-	pthread_mutex_init(&db->resource, NULL);
+	spinlock_init(&db->reader);
+	spinlock_init(&db->resource);
 	//set the reader count to 0
 	db->readerCount = 0;
 	db->sharedGlobalVariable = 0;
@@ -15,11 +15,11 @@ void initDB1(database_v1* db) {
 
 void initDB2(database_v2* db) {
 	//initialize the mutexes
-	pthread_mutex_init(&db->resource, NULL);
-	pthread_mutex_init(&db->readtry, NULL);
-	pthread_mutex_init(&db->rentry, NULL);
-	pthread_mutex_init(&db->writer, NULL);
-	pthread_mutex_init(&db->reader, NULL);
+	spinlock_init(&db->resource);
+	spinlock_init(&db->readtry);
+	spinlock_init(&db->rentry);
+	spinlock_init(&db->writer);
+	spinlock_init(&db->reader);
 	//set the counts to 0
 	db->readerCount = 0;
 	db->writerCount = 0;
@@ -29,8 +29,8 @@ void initDB2(database_v2* db) {
 
 void initDB3(database_v3* db){
 	//initialize the mutexes
-	pthread_mutex_init(&db->resource, NULL);
-	pthread_mutex_init(&db->readwrite, NULL);
+	spinlock_init(&db->resource);
+	spinlock_init(&db->readwrite);
 	//set the counts to 0
 	db->readerCount = 0;
 	db->writerCount = 0;
