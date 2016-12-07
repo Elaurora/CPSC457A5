@@ -108,7 +108,7 @@ double readerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 		 }
 		 
 #if VERBOSE
-		 fprintf(outputStream, "Average turn around for %d readers, %d writers is: %lf\n", readerCount, writerCount, sumTurnaroundReader / readerCount);
+		 fprintf(outputStream, "Average turn around for %d readers, %d writers is: %lfns\n", readerCount, writerCount, sumTurnaroundReader / readerCount);
 #else
 		fprintf(outputStream, "%d\t%d\t%lf\n", readerCount, writerCount, sumTurnaroundReader / readerCount);
 #endif	
@@ -163,7 +163,7 @@ double writerTestCase(void *(*readerTask) (void *), void *(*writerTask) (void *)
 		 }
 		 
 #if VERBOSE
-		fprintf(outputStream, "Average turn around for %d readers, %d writers is: %lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
+		fprintf(outputStream, "Average turn around for %d readers, %d writers is: %lfns\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
 #else
 		fprintf(outputStream, "%d\t%d\t%lf\n", readerCount, writerCount, sumTurnaroundWriter / readerCount);
 #endif	

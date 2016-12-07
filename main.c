@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 #endif
 	printf("starting case 1\n");
 
-	 runTest1();
+	runTest1();
 	 
 #if VERBOSE
 	fprintf(outputStream, "starting case 2\n");
